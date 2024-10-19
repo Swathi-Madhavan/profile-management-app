@@ -1,8 +1,8 @@
 import { TextFieldProps } from "@mui/material/TextField/TextField";
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
 export interface ProfileInformation {
-  id: number;
+  id: string;
   name: string;
   email: string;
   age?: number;
@@ -21,4 +21,29 @@ export interface FormCardProps {
 
 export interface DisplayFieldDataProps {
   name: keyof ProfileInformation;
+}
+
+export interface ProfileAPIStatusState {
+  statusCode: number | null;
+}
+
+export interface APIResponse {
+  statusCode?: number;
+  errorMessage?: string;
+}
+
+export interface ProfileManagementContextDataType {
+  userName?: string;
+  profileId?: string;
+  createProfileAPIStatus?: APIResponse;
+  updateProfileAPIStatus?: APIResponse;
+  deleteProfileAPIStatus?: APIResponse;
+  isLoading?: boolean;
+}
+
+export interface ContextDataType {
+  profileMgContext?: ProfileManagementContextDataType;
+  setProfileMgContext?: Dispatch<
+    SetStateAction<ProfileManagementContextDataType>
+  >;
 }

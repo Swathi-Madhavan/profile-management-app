@@ -1,5 +1,6 @@
-import React, { ReactNode, useCallback, useState } from "react";
+import React, { ReactNode, useCallback, useContext, useState } from "react";
 import Box from "@mui/material/Box";
+import { v4 as uuidv4 } from "uuid";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
@@ -10,6 +11,8 @@ import { useFormContext } from "react-hook-form";
 import { ProfileInformation } from "../model";
 import PreviewForm from "./PreviewForm";
 import ProfileStatus from "./ProfileStatus";
+import createProfileAPI from "../api/createProfileAPI";
+import { ProfileManagementContext } from "../App";
 
 const steps = ["Fill information", "Preview information", "Submitted"];
 
@@ -23,18 +26,38 @@ export default function CustomStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set<number>());
 
+  const { setProfileMgContext, profileMgContext } = useContext(
+    ProfileManagementContext
+  );
   const {
     formState: { isValid },
+    getValues,
   } = useFormContext<ProfileInformation>();
 
   const isStepSkipped = (step: number) => {
     return skipped.has(step);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     const isValidForm = activeStep === 0 ? isValid : true;
 
     if (isValidForm) {
+      if (activeStep === 1) {
+        const profileInfoData = getValues();
+        profileInfoData.id = uuidv4();
+        const data = await createProfileAPI(getValues());
+        if (setProfileMgContext) {
+          console.log("data 0", data);
+          setProfileMgContext({
+            createProfileAPIStatus: {
+              errorMessage: data?.apiResponse?.errorMessage,
+              statusCode: data?.apiResponse?.statusCode,
+            },
+            profileId: data?.response?.id,
+            ...profileMgContext,
+          });
+        }
+      }
       let newSkipped = skipped;
       if (isStepSkipped(activeStep)) {
         newSkipped = new Set(newSkipped.values());
@@ -109,6 +132,7 @@ export default function CustomStepper() {
                   backgroundColor: "transparent",
                   textTransform: "none",
                 }}
+                disabled={!isValid}
                 {...(activeStep === 1
                   ? { variant: "contained", color: "primary" }
                   : { variant: "text" })}

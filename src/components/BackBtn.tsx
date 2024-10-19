@@ -11,7 +11,7 @@ export default function BackBtn() {
 
   const handleBack = () => {
     navigate(-1);
-    reset({ id: 1, name: "", email: "", age: undefined });
+    reset({ id: "1", name: "", email: "", age: undefined });
   };
 
   return (

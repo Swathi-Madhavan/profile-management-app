@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 const profileSchema = yup.object().shape({
-  id: yup.number().required(),
+  id: yup.string().required(),
   name: yup.string().required(),
   email: yup.string().email().required(),
   age: yup
