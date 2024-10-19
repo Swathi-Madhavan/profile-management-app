@@ -2,12 +2,16 @@ import { Typography, Box, Button, Stack } from "@mui/material";
 import React from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useNavigate } from "react-router-dom";
+import { useFormContext } from "react-hook-form";
+import { ProfileInformation } from "../model";
 
 export default function BackBtn() {
   const navigate = useNavigate();
+  const { reset } = useFormContext<ProfileInformation>();
 
   const handleBack = () => {
     navigate(-1);
+    reset({ id: 1, name: "", email: "", age: undefined });
   };
 
   return (

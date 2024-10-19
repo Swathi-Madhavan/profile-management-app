@@ -10,6 +10,8 @@ const profileSchema = yup.object().shape({
     .positive("enter a postive number")
     .min(1, "Minimum age limit is 1")
     .max(125, "Maximum age limit is 125")
+    .nonNullable()
+    .transform((value) => (Number.isNaN(value) ? undefined : value))
     .optional(),
 });
 

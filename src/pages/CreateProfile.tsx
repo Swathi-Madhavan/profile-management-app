@@ -4,7 +4,6 @@ import BackBtn from "../components/BackBtn";
 import CustomStepper from "../components/CustomStepper";
 
 export default function CreateProfile() {
-    
   return (
     <Box>
       <BackBtn />
