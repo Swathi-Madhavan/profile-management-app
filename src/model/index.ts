@@ -74,6 +74,10 @@ export interface FormComponentsProps {
   showDeleteBtn?: boolean;
 }
 
+export interface ProfileStatusProps {
+  selectedProfileId: string;
+}
+
 export interface CustomStepperProps extends FormComponentsProps {
   renderComponents: Record<number, ReactNode>;
 }

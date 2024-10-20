@@ -79,7 +79,7 @@ export default function CreateProfile() {
         />
       ),
       1: <PreviewForm selectedProfileId={selectedProfileId} />,
-      2: <ProfileStatus />,
+      2: <ProfileStatus selectedProfileId={selectedProfileId} />,
     }),
     [selectedProfileId, openProfileNotfoundDialog, handleOpenDelete]
   );

@@ -4,9 +4,11 @@ import { Button } from "@mui/material";
 import { ProfileManagementContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
-import { ProfileInformation } from "../model";
+import { ProfileInformation, ProfileStatusProps } from "../model";
 
-export default function ProfileStatus() {
+export default function ProfileStatus({
+  selectedProfileId,
+}: Readonly<ProfileStatusProps>) {
   const { profileMgContext, setProfileMgContext } = useContext(
     ProfileManagementContext
   );
@@ -50,8 +52,12 @@ export default function ProfileStatus() {
     profileMgContext?.createAndUpdateProfileAPIStatus?.statusCode === 200 ? (
     <FormCard
       bodyContent={null}
-      cardTitle="Profile created successfully"
-      description={`Congratulations, your profile created successfully. Your profile id is ${profileMgContext?.profileId}`}
+      cardTitle={`Profile ${
+        selectedProfileId ? "update" : "create"
+      } successfully`}
+      description={`Congratulations, your profile ${
+        selectedProfileId ? "update" : "create"
+      } successfully. Your profile id is ${profileMgContext?.profileId}`}
     />
   ) : (
     <FormCard
@@ -61,7 +67,9 @@ export default function ProfileStatus() {
         </Button>
       }
       cardTitle="Unable to create profile"
-      description={`Oop!, your profile was not created due to following reason.`}
+      description={`Oop!, your profile was not ${
+        selectedProfileId ? "update" : "create"
+      } due to following reason.`}
       errorMessage={
         profileMgContext?.createAndUpdateProfileAPIStatus?.errorMessage
       }
