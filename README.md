@@ -1,46 +1,25 @@
-# Getting Started with Create React App
+# Profile management react app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
-
-In the project directory, you can run:
+## Script to run this project in local
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This will run the react application in your local machine
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Step to run this application in local
 
-### `npm test`
+#### Set up json-server
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. clone https://github.com/Swathi-Madhavan/profile-management-json-server json-server app in your local machine
+2. open the cloned project in VS code.
+3. Run the following commands one by one. npm i & npm run dev
+4. Test service live status by visiting http://localhost:8000/ in browser.
 
-### `npm run build`
+#### Set up profile management app
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. clone https://github.com/Swathi-Madhavan/profile-management-app app in your local machine
+2. open the cloned project in VS code.
+3. Run the following commands one by one. npm i & npm start
+4. visit http://localhost:3000/profile
