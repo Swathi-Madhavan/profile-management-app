@@ -3,12 +3,15 @@ import FormCard from "../uicomponents/FormCard";
 import { Button } from "@mui/material";
 import { ProfileManagementContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import { useFormContext } from "react-hook-form";
+import { ProfileInformation } from "../model";
 
 export default function ProfileStatus() {
   const { profileMgContext, setProfileMgContext } = useContext(
     ProfileManagementContext
   );
   const navigate = useNavigate();
+  const { reset } = useFormContext<ProfileInformation>();
 
   const handleRetry = () => {
     setTimeout(() => {
@@ -17,24 +20,24 @@ export default function ProfileStatus() {
     navigate(-1);
   };
 
-  const handleViewProfile = () => {
-    navigate(`/profile-form/?profileId=${profileMgContext?.profileId}`);
-  };
-
   const handleRedirect = useCallback(() => {
     setTimeout(() => {
       navigate("/profile");
       if (setProfileMgContext) {
         setProfileMgContext({
-          createAndUpdateProfileAPIStatus: undefined,
-          ...profileMgContext,
+          userName: undefined,
+          doRefetch: true,
         });
+        reset({ id: "1", name: "", email: "", age: undefined });
       }
     }, 1000);
-  }, [navigate, profileMgContext, setProfileMgContext]);
+  }, [navigate, reset, setProfileMgContext]);
 
   useEffect(() => {
-    if (profileMgContext?.createAndUpdateProfileAPIStatus?.statusCode === 201) {
+    if (
+      profileMgContext?.createAndUpdateProfileAPIStatus?.statusCode === 201 ||
+      profileMgContext?.createAndUpdateProfileAPIStatus?.statusCode === 200
+    ) {
       handleRedirect();
     }
   }, [
@@ -43,13 +46,10 @@ export default function ProfileStatus() {
   ]);
 
   return profileMgContext?.createAndUpdateProfileAPIStatus?.statusCode ===
-    201 ? (
+    201 ||
+    profileMgContext?.createAndUpdateProfileAPIStatus?.statusCode === 200 ? (
     <FormCard
-      bodyContent={
-        <Button color="primary" variant="contained" onClick={handleViewProfile}>
-          View profile
-        </Button>
-      }
+      bodyContent={null}
       cardTitle="Profile created successfully"
       description={`Congratulations, your profile created successfully. Your profile id is ${profileMgContext?.profileId}`}
     />

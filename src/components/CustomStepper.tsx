@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import Box from "@mui/material/Box";
 import { v4 as uuidv4 } from "uuid";
 import Stepper from "@mui/material/Stepper";
@@ -6,23 +6,17 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import CreateProfile from "./CreateForm";
 import { useFormContext } from "react-hook-form";
-import { ProfileInformation } from "../model";
-import PreviewForm from "./PreviewForm";
-import ProfileStatus from "./ProfileStatus";
+import { CustomStepperProps, ProfileInformation } from "../model";
 import createProfileAPI from "../api/createProfileAPI";
 import { ProfileManagementContext } from "../App";
 
 const steps = ["Fill information", "Preview information", "Submitted"];
 
-const renderComponents: Record<number, ReactNode> = {
-  0: <CreateProfile />,
-  1: <PreviewForm />,
-  2: <ProfileStatus />,
-};
-
-export default function CustomStepper() {
+export default function CustomStepper({
+  renderComponents,
+  selectedProfileId,
+}: Readonly<CustomStepperProps>) {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set<number>());
 
@@ -44,8 +38,13 @@ export default function CustomStepper() {
     if (isValidForm) {
       if (activeStep === 1) {
         const profileInfoData = { ...getValues() };
-        profileInfoData.id = uuidv4();
-        const data = await createProfileAPI({ ...profileInfoData });
+        if (!selectedProfileId) {
+          profileInfoData.id = uuidv4();
+        }
+        const data = await createProfileAPI(
+          { ...profileInfoData },
+          selectedProfileId
+        );
         if (setProfileMgContext) {
           setProfileMgContext({
             createAndUpdateProfileAPIStatus: {
@@ -53,6 +52,7 @@ export default function CustomStepper() {
               statusCode: data?.apiResponse?.statusCode,
             },
             profileId: data?.response?.id,
+            userName: data?.response?.name,
             ...profileMgContext,
           });
         }
@@ -65,8 +65,6 @@ export default function CustomStepper() {
 
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       setSkipped(newSkipped);
-    } else {
-      // show error banner here
     }
   };
 
@@ -80,7 +78,7 @@ export default function CustomStepper() {
 
   const handleRender = useCallback(
     () => renderComponents[activeStep],
-    [activeStep]
+    [activeStep, renderComponents]
   );
 
   return (

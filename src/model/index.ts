@@ -18,6 +18,9 @@ export interface FormCardProps {
   description: string;
   bodyContent: ReactNode;
   errorMessage?: string;
+  selectedProfileId?: string;
+  handleDelete?: () => void;
+  showDeleteBtn?: boolean;
 }
 
 export interface DisplayFieldDataProps {
@@ -39,6 +42,8 @@ export interface ProfileManagementContextDataType {
   createAndUpdateProfileAPIStatus?: APIResponse;
   deleteProfileAPIStatus?: APIResponse;
   isLoading?: boolean;
+  searchParamsProfileId?: string;
+  doRefetch?: boolean;
 }
 
 export interface ContextDataType {
@@ -55,9 +60,20 @@ export interface AlertDialogProps {
   positiveBtnText: string;
   negativeBtnText: string;
   contentArea: ReactNode;
+  showActionBtn?: boolean;
 }
 
 export interface ProfilesDataTableProps {
   handleDeleteClick: (id: string) => void;
   data: Array<ProfileInformation>;
+}
+
+export interface FormComponentsProps {
+  selectedProfileId: string;
+  handleDelete?: () => void;
+  showDeleteBtn?: boolean;
+}
+
+export interface CustomStepperProps extends FormComponentsProps {
+  renderComponents: Record<number, ReactNode>;
 }

@@ -24,6 +24,7 @@ export default function Dashboard() {
     ProfileManagementContext
   );
 
+  const doRefetch = profileMgContext?.doRefetch;
   const handleCreateProfile = () => {
     navigate("/profile-form");
   };
@@ -36,7 +37,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     getProfiles();
-  }, [getProfiles]);
+  }, [getProfiles, doRefetch]);
 
   const handleDeleteClick = (id: string) => {
     setOpenDeleteDialog({ state: true, selectedId: id });
@@ -92,7 +93,7 @@ export default function Dashboard() {
         </Stack>
       )}
       <RowSpaceBetween>
-        <Typography variant="h5">Profile management</Typography>
+        <Typography variant="h5">Profiles</Typography>
         <Button
           variant="contained"
           color="primary"

@@ -25,6 +25,7 @@ export default function DialogBox({
   positiveBtnText,
   title,
   contentArea,
+  showActionBtn = true,
 }: Readonly<AlertDialogProps>) {
   return (
     <Dialog
@@ -37,19 +38,29 @@ export default function DialogBox({
       <DialogContent>
         <DialogContentText>{contentArea}</DialogContentText>
       </DialogContent>
-      <DialogActions>
-        <Button
-          onClick={() => handleClose(false)}
-          sx={{
-            color: "#000",
-            backgroundColor: "transparent",
-          }}
-          variant="text"
-        >
-          {negativeBtnText}
-        </Button>
-        <Button onClick={() => handleClose(true)}>{positiveBtnText}</Button>
-      </DialogActions>
+      {showActionBtn && (
+        <DialogActions sx={{ padding: "24px" }}>
+          <Button
+            onClick={() => handleClose(false)}
+            sx={{
+              color: "#000",
+              backgroundColor: "transparent",
+              textTransform: "none",
+            }}
+            variant="text"
+          >
+            {negativeBtnText}
+          </Button>
+          <Button
+            onClick={() => handleClose(true)}
+            variant="contained"
+            color="error"
+            sx={{ textTransform: "none" }}
+          >
+            {positiveBtnText}
+          </Button>
+        </DialogActions>
+      )}
     </Dialog>
   );
 }

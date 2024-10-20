@@ -10,17 +10,14 @@ export default function BackBtn() {
   const navigate = useNavigate();
   const { reset } = useFormContext<ProfileInformation>();
 
-  const { setProfileMgContext, profileMgContext } = useContext(
-    ProfileManagementContext
-  );
+  const { setProfileMgContext } = useContext(ProfileManagementContext);
 
   const handleBack = () => {
     navigate(-1);
     reset({ id: "1", name: "", email: "", age: undefined });
     if (setProfileMgContext) {
       setProfileMgContext({
-        createAndUpdateProfileAPIStatus: undefined,
-        ...profileMgContext,
+        userName: undefined,
       });
     }
   };

@@ -11,7 +11,18 @@ import {
 } from "./model";
 import profileSchema from "./schema/formValidation";
 
-export const ProfileManagementContext = createContext<ContextDataType>({});
+export const contextInit = {
+  createAndUpdateProfileAPIStatus: undefined,
+  deleteProfileAPIStatus: undefined,
+  isLoading: false,
+  profileId: undefined,
+  userName: undefined,
+  doRefetch: true,
+};
+
+export const ProfileManagementContext = createContext<ContextDataType>({
+  profileMgContext: contextInit,
+});
 
 function App() {
   const [profileMgContext, setProfileMgContext] =

@@ -6,6 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import CreateProfile from "./pages/CreateProfile";
 import Dashboard from "./pages/Dashboard";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter(
   [
@@ -22,7 +23,15 @@ const router = createBrowserRouter(
           path: "profile-form/:profileId?",
           element: <CreateProfile />,
         },
+        {
+          path: "*",
+          element: <NotFound />,
+        },
       ],
+    },
+    {
+      path: "*",
+      element: <NotFound />,
     },
   ],
   { basename: "/" }

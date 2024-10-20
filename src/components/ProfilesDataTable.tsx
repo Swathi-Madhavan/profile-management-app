@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import {
-  getMRT_RowSelectionHandler,
+  // getMRT_RowSelectionHandler,
   MaterialReactTable,
   useMaterialReactTable,
   type MRT_ColumnDef,
@@ -9,12 +9,14 @@ import { ProfileInformation, ProfilesDataTableProps } from "../model";
 import { Box, IconButton } from "@mui/material";
 import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { ProfileManagementContext } from "../App";
 
 const ProfilesDataTable = ({
   handleDeleteClick,
   data,
 }: Readonly<ProfilesDataTableProps>) => {
   const navigate = useNavigate();
+  const { setProfileMgContext } = useContext(ProfileManagementContext);
 
   const columns = useMemo<MRT_ColumnDef<ProfileInformation>[]>(
     () => [
@@ -42,13 +44,25 @@ const ProfilesDataTable = ({
     []
   );
 
+  const handleEdit = (name: string, id: string) => {
+    if (setProfileMgContext) {
+      setProfileMgContext({
+        userName: name,
+      });
+    }
+    navigate(`/profile-form/?profileId=${id}`);
+  };
+
   const table = useMaterialReactTable({
     columns,
     data,
     enableRowActions: true,
     renderRowActions: ({ row }) => (
       <Box>
-        <IconButton color="info" onClick={() => console.info("Edit")}>
+        <IconButton
+          color="info"
+          onClick={() => handleEdit(row?.original?.name, row?.original?.id)}
+        >
           <EditIcon />
         </IconButton>
         <IconButton
@@ -65,15 +79,6 @@ const ProfilesDataTable = ({
     },
     enableTopToolbar: false,
     positionActionsColumn: "last",
-    muiTableBodyRowProps: ({ row, staticRowIndex, table }) => ({
-      onClick: (event) => {
-        navigate(`/profile-form/?profileId=${row?.original.id}`);
-        return getMRT_RowSelectionHandler({ row, staticRowIndex, table })(
-          event
-        );
-      },
-      sx: { cursor: "pointer" },
-    }),
   });
 
   return <MaterialReactTable table={table} />;

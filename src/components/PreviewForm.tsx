@@ -1,8 +1,11 @@
 import React from "react";
 import FormCard from "../uicomponents/FormCard";
 import DisplayFieldData from "../uicomponents/DisplayFieldData";
+import { FormComponentsProps } from "../model";
 
-export default function PreviewForm() {
+export default function PreviewForm({
+  selectedProfileId,
+}: Readonly<FormComponentsProps>) {
   return (
     <FormCard
       bodyContent={
@@ -12,8 +15,12 @@ export default function PreviewForm() {
           <DisplayFieldData name="age" />
         </React.Fragment>
       }
-      cardTitle="Preview create profile form"
-      description="A user profile will be create using the below information. verify the below information before clicking the submit button. if you want to edit the form before submit. Click back button to edit the form."
+      cardTitle={`Preview ${
+        selectedProfileId ? "update" : "create"
+      } profile form`}
+      description={`A user profile will be ${
+        selectedProfileId ? "update" : "create"
+      } using the below information. verify the below information before clicking the submit button. if you want to edit the form before submit. Click back button to edit the form.`}
     />
   );
 }
