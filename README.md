@@ -23,3 +23,11 @@ This will run the react application in your local machine
 2. open the cloned project in VS code.
 3. Run the following commands one by one. npm i & npm start
 4. visit http://localhost:3000/profile
+
+### Highlights in this project
+
+1. Created re-usable components
+2. Validation done by yup library
+3. Handled API error status by user friendly error message.
+4. Wrote stateless component to improve performance
+5. used useMemo and useCallback to optimize app execution
