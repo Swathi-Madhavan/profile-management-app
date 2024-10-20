@@ -5,7 +5,6 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import CreateProfile from "./pages/CreateProfile";
-import ViewProfile from "./pages/ViewProfile";
 import Dashboard from "./pages/Dashboard";
 
 const router = createBrowserRouter(
@@ -15,16 +14,13 @@ const router = createBrowserRouter(
       element: <App />,
       children: [
         {
+          path: "profile",
           element: <Dashboard />,
           index: true,
         },
         {
-          path: "create-profile",
+          path: "profile-form/:profileId?",
           element: <CreateProfile />,
-        },
-        {
-          path: "view-profile/:projectId?",
-          element: <ViewProfile />,
         },
       ],
     },

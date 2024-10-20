@@ -17,6 +17,7 @@ export interface FormCardProps {
   cardTitle: string;
   description: string;
   bodyContent: ReactNode;
+  errorMessage?: string;
 }
 
 export interface DisplayFieldDataProps {
@@ -35,8 +36,7 @@ export interface APIResponse {
 export interface ProfileManagementContextDataType {
   userName?: string;
   profileId?: string;
-  createProfileAPIStatus?: APIResponse;
-  updateProfileAPIStatus?: APIResponse;
+  createAndUpdateProfileAPIStatus?: APIResponse;
   deleteProfileAPIStatus?: APIResponse;
   isLoading?: boolean;
 }
@@ -46,4 +46,18 @@ export interface ContextDataType {
   setProfileMgContext?: Dispatch<
     SetStateAction<ProfileManagementContextDataType>
   >;
+}
+
+export interface AlertDialogProps {
+  title: string;
+  open: boolean;
+  handleClose: (status: boolean) => void;
+  positiveBtnText: string;
+  negativeBtnText: string;
+  contentArea: ReactNode;
+}
+
+export interface ProfilesDataTableProps {
+  handleDeleteClick: (id: string) => void;
+  data: Array<ProfileInformation>;
 }

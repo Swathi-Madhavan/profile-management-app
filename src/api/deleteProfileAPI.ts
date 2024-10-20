@@ -1,15 +1,14 @@
 import axios from "axios";
-import { APIResponse, ProfileInformation } from "../model";
+import { APIResponse } from "../model";
 
-export default async function createProfileAPI(payload: ProfileInformation) {
+export default async function deleteProfilesAPI(profileId: string) {
   let apiResponse: APIResponse = {
     errorMessage: "",
     statusCode: 0,
   };
 
   const response = await axios
-    .post(`/${process.env.REACT_APP_PROFILE_URL}`, payload, {
-      method: "POST",
+    .delete(`/${process.env.REACT_APP_PROFILE_URL}/${profileId}`, {
       baseURL: process.env.REACT_APP_API_URL,
     })
     .then((res) => {

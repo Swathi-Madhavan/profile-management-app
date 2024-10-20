@@ -12,7 +12,7 @@ export default function CustomAppBar({
   const navigate = useNavigate();
 
   const backTOHome = () => {
-    navigate("/");
+    navigate("/profile");
   };
 
   return (

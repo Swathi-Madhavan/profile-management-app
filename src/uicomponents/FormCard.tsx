@@ -7,6 +7,7 @@ export default function FormCard({
   bodyContent,
   cardTitle,
   description,
+  errorMessage,
 }: Readonly<FormCardProps>) {
   return (
     <Stack
@@ -22,7 +23,8 @@ export default function FormCard({
       <DivBox>
         <Typography variant="h5">{cardTitle}</Typography>
         <Typography variant="body2" sx={{ fontSize: "10px", mb: 1.5 }}>
-          {description}
+          {description}{" "}
+          {errorMessage && <span style={{ color: "red" }}>{errorMessage}</span>}
         </Typography>
         {bodyContent}
       </DivBox>

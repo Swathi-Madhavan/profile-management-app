@@ -43,13 +43,12 @@ export default function CustomStepper() {
 
     if (isValidForm) {
       if (activeStep === 1) {
-        const profileInfoData = getValues();
+        const profileInfoData = { ...getValues() };
         profileInfoData.id = uuidv4();
-        const data = await createProfileAPI(getValues());
+        const data = await createProfileAPI({ ...profileInfoData });
         if (setProfileMgContext) {
-          console.log("data 0", data);
           setProfileMgContext({
-            createProfileAPIStatus: {
+            createAndUpdateProfileAPIStatus: {
               errorMessage: data?.apiResponse?.errorMessage,
               statusCode: data?.apiResponse?.statusCode,
             },
