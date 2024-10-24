@@ -1,6 +1,8 @@
 # Profile management react app
 URL: https://6714ff07ae59cafcf4b85fdd--swathimadhavan-profile-management-app.netlify.app/
 
+#### Preview
+![preview](https://github.com/Swathi-Madhavan/profile-management-app/blob/main/public/preview.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
